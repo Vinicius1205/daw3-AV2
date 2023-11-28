@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>replit</title>
+</head>
+
+<body>
+  <h2>Incluir Fiscal</h2>
+  <form id="incluirFiscal.html" method="post">
+      <label for="nomeFiscal">Nome:</label>
+      <input type="text" id="nomeF" name="nomeF" required><br>
+
+      <label for="cpfFiscal">CPF:</label>
+      <input type="text" id="cpfF" name="cpfF" required><br>
+
+      <label for="salaProvaFiscal">Sala de Prova:</label>
+      <input type="text" id="salaProvaF" name="salaProvaF"><br>
+
+      <input type="submit" value="Incluir Fiscal" onsubmit="incluirFiscal()">
+    
+  </form>
+  <script>
+    function incluirFiscal($dados)
+    {
+      if(empty($dados['nomeF']) || empty($dados['cpfF']) || empty($dados['salaProvaF']))
+      {
+          return false;
+      }
+      var nomeF=$('#nomeF');
+      var cpfF=$('#cpfF');
+      var salaProvaF=$('#salaProvaF');
+
+      $.ajax({
+          type: 'POST',
+          url: 'incluirF.php',
+          data: { nomeF: nomeF, cpfF: cpfF,salaProvaF:salaProvaF },
+          dataType: 'json',
+          success: function (data) {
+              $('#resultado').html("<h2>Resultado:</h2><p>" + data.resultado + "</p>");
+          },
+          error: function (error) {
+              console.error('Erro:', error);
+          }
+    }
+  </script>
+  
+</body>
+
+</html>

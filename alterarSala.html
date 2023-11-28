@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Alterar</title>
+</head>
+
+<body>
+  <h2>Alterar sala do candidato</h2>
+  <form id="alterarSala.html" method="post">
+      <label for="nomeC">Nome:</label>
+      <input type="text" id="nomeC" name="nomeC" required><br>
+
+      <label for="idC">ID:</label>
+      <input type="text" id="idC" name="idC" required><br>
+
+      <label for="salaProvaN">Nova sala:</label>
+      <input type="text" id="salaProvaN" name="salaProvaN"><br>
+
+      <input type="submit" value="Alterar Sala" onsubmit="alterarSala()">
+
+  </form>
+  <script>
+    function alterarSala($dados)
+    {
+      if(empty($dados['nomeC']) || empty($dados['idC']) || empty($dados['salaProvaN']))
+      {
+          return false;
+      }
+      var nomeC=$('#nomeC');
+      var idC=$('#idC');
+      var salaProvaN=$('#salaProvaN');
+
+      $.ajax({
+          type: 'POST',
+          url: 'alterarS.php',
+          data: { nomeC: nomeC, idC: idC,salaProvaN:salaProvaN},
+          dataType: 'json',
+          success: function (data) {
+              $('#resultado').html("<h2>Resultado:</h2><p>" + data.resultado + "</p>");
+          },
+          error: function (error) {
+              console.error('Erro:', error);
+          }
+    }
+  </script>
+
+</body>
+
+</html>
